@@ -61,17 +61,108 @@ The rationale for predicting this target with this data is that accurately ident
 
 ### The Dataset
 
-For the means of this project, data was obtained from a software which simulated the responses obtained from a *silicon detector* and a *photomultipier* ater a highly energetic collision between a proton and an electron, also known as **electron-proton inelastic scattering**. 
+For the means of this project, data was obtained from a software which simulated the responses obtained from a *silicon detector* and a *photomultipier* ater a highly energetic collision between a proton and an electron, also known as **electron-proton inelastic scattering**. The used sofware is called GEANT. More information about the simulated detectors can be found here: https://www.ge.infn.it/geant4/training/ptb_2009/detector_response.pdf
+
+For step by step guide on the dataset download and setup refer to the *Getting started* section of this doccument. 
 
 The geometry of the simulated collision and the detector is showed in the picture below:
 ![image](https://user-images.githubusercontent.com/115569635/230621276-b8e97fe0-635a-47e4-a4e2-d45320df1aa1.png)
 
+When the particles collide, a shower of new particles is produced. Each product particle deflects from the center of the collision to a determined direction with specific velocity and energy. 
 
-It is a dataset generatied by a simulation software called GEANT from the CERN laboratories. More information about the simulated detectors is found here> https://www.ge.infn.it/geant4/training/ptb_2009/detector_response.pdf
+The simulated detector generates a response based on how a product particle hits the semiconductor panels (the green flower from the picture above) which will give information about the position and momentum of the particle. The particles that cross beyond these, reach the photomultiplier. The photomultiplier works by generating a shower of photoelectrons when hit due to energy transfer from the incident particle, the response will then be the total number of produced signals of a photoelectron. 
+
+#### Quick view 
+![image](https://user-images.githubusercontent.com/115569635/230669368-8134672e-1423-47b3-907a-f966c59acb73.png)
+
+#### What are we classifying? (dataset target)
+- **id**: Identification numbrer of the particle event, i.e., what is the product particle after the collision (Positron, Kaon, Pion or Proton). This is our target variable. 
+  - Positron: Id = 0 
+  - Kaon: Id = 1
+  - Pion: Id = 2
+  - Proton: Id = 3
+
+#### About the features (dataset columns):
+
+- **p**: Momentum of the particle when it reaches the detector (GeV/c).   
+- **theta ($\theta$)**: azimutal angle (radians)
+- **beta ($\beta$)**: polar angle (radians)
+- **nphe ($N_{\gamma}$)**: number of photoelectrons produced in the photomultiplier
+- **ein**: energy in 
+- **eout**: energy out 
+
+It is a dataset generatied by a simulation software called GEANT from the CERN laboratories. 
+
+The original dataset contained a total of **5,000,000** rows, after cleanning and resampling, around **58,000** rows of data remained. This drastical reduction on the sample data is due to the high class imbalance presented in the original dataset (Class imbalance in machine learning can lead to biased predictions towards the majority class, resulting in poor performance for the minority class. To address this problem, techniques such as oversampling, undersampling, cost-sensitive learning, or ensemble methods can be employed). For further detail in data preparation, refer to the main project notebook.
+
 
 ### About the Model 
+As a **baseline**, a simple neural network with only 4 neurons in the the hiden layer was trained with the original imbalanced dataset. As expected, the performance of the model was highly affected by the difference between the mayority and minority class, turning out in a good classificator for the mayority class but a completely poor model for identifiying events of the minority one. 
 
+Initially, the class distribution of the data looked like this:
+![image](https://user-images.githubusercontent.com/115569635/230681500-6a55ff76-c395-442b-bc5b-b416c020063a.png)
+And the resulting evaluation metrics turned out as shown bellow
+![image](https://user-images.githubusercontent.com/115569635/230681585-730d1931-6930-4e64-878c-149310fdcc97.png)
+- The model was uncapable of identifiying any **Positron** event. 
+- For the **Pion** class, the predictions from the model had a low rate of true positives, i.e. , it classified more events incorrectly as pions than the ones classified correctly. However, it performed well identifiying true negatives. 
+- For the  **Proton** and **Kaon** classes, most of the true labels where classified correctly but there where also a considerable amount of false labels classified as true.
 
+Overall, this baseline naive model was not even close to be functional or to even meet the goal. 
 
+The **final** proposed model consist of a simple neural network, with 6 input neurons (as there are a total of 6 features), one hiden layer with 10 neurons (number of neurons in this layer was chosen trough a grid search exproration between 4 and 12 neurons ) and an output layer with 4 neurons (due to having 4 classes). The architechture is described in the diagram below.
 
 ![image](https://user-images.githubusercontent.com/115569635/230452743-013f56d1-6e78-4602-a767-476cd12c5a3f.png)
+
+- Loss Function: **Categorical Cross Entropy**
+  - Categorical cross-entropy is a commonly used loss function in machine learning for classification problems where the output variable is a categorical variable. The main reason for using categorical cross-entropy is that it measures the difference between the predicted probability distribution and the true probability distribution of the categories. It does this by computing the log-likelihood of the true categories given the predicted probabilities. This loss function is useful because it penalizes heavily the prediction of a low probability for the true category, while rewarding the prediction of high probabilities for the true category.    
+
+- Optimizer: **Adam** (Adaptive Moment Estimation) is a popular optimization algorithm used in machine learning to update the parameters of a model during training. There are several reasons why one might choose to use Adam as an optimizer:
+
+    - Adaptive learning rate: Adam adapts the learning rate for each parameter based on the historical gradients. This means that it can automatically adjust the learning rate for each parameter and can converge faster than other optimization algorithms, especially in high-dimensional problems.
+
+    - Momentum: Adam uses momentum to accelerate the optimization process. Momentum helps the optimizer to continue moving in the same direction, even when the gradients change direction, which helps to avoid getting stuck in local minima.
+
+    - Regularization: Adam has a built-in regularization mechanism that helps to prevent overfitting by penalizing large weights.
+
+    - Easy to use: Adam is easy to use and doesn't require much tuning of hyperparameters.
+ 
+### Model Results 
+After balancing the data, cleaning and hyperparameter tunning, this is how predictions performed compared to true labels:
+
+![image](https://user-images.githubusercontent.com/115569635/230684368-ca8979da-d88d-4c0f-9daf-80c84114feb7.png)
+
+As we see, most predictions are condensed in the diagonal of the confusion matrix, this means that most labels where predicted correctly from the test dataset. 
+ 
+####  Evaluation Metrics 
+|           |  precision  |  recall       | f1-score     | support     |
+|-----------|------------ | ------------- |--------------|------------ |
+|positron    |  96%  |   96%  |    96%  |    5887|
+|pion        | 93%    |  89%    |  91%    |  5939|
+|proton      | 92%    |  94%    |  93%    |  5965|
+|kaon        | 97%    |  98%    |  98%    |  5866|
+
+With the new model, the precission and recall for almost every class was above 90%, having an overal accuracy, of 94%. The classes that performed best with this model where the Positron and Kaon, both with precission and recall above 95%, in contrast with the first version, where the model was uncapable of identifiying the first of these.
+
+
+### Conclusion 
+The development of a neural network that classifies subatomic particles produced in high energy particle collisions has many potential applications in the field of particle physics. By accurately classifying the particles produced, the neural network can aid in the discovery of new particles, as well as the measurement of their properties, which could contribute to our understanding of the fundamental laws of the universe. Furthermore, the classification of subatomic particles can have practical applications in the fields of medical imaging and radiation therapy, where the precise measurement and classification of subatomic particles can help to improve treatment planning and outcomes. Overall, the development and implementation of a neural network for subatomic particle classification has significant potential to advance both theoretical and practical applications in various fields.
+
+Some of the applications where this model can come to play can be found in the following links:
+
+- CERN (European Organization for Nuclear Research) - https://home.cern/science/physics
+
+- Particle Physics Applications - https://www.physics.purdue.edu/research/high_energy_physics/applications.php
+
+- Medical Applications of Particle Physics - https://www.iaea.org/topics/radiation-protection/medical-applications-of-ionizing-radiation/particle-therapy
+
+- Brookhaven National Laboratory - Applications of High Energy Physics - https://www.bnl.gov/science/high-energy-physics/applications.php
+
+- Fermilab - Particle Physics for Everyone - https://www.fnal.gov/pub/science/particle-physics/particle-physics-for-everyone/what-is-particle-physics/applications/index.html
+
+
+ ## Getting Started
+
+### Repository exploration
+
+This repository consist only of 3 main files:
+- Setup
