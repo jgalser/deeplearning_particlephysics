@@ -166,10 +166,12 @@ Some of the applications where this model can come to play can be found in the f
 
 There are a couple of steps to follow to run this repository localy. 
 
-1. This is a project that runs completely on python 3 Jupeyter Notebooks. Be sure to have the needed IDE to run a jupyter notebook.
-2. **Download and install the required libraries**
+#### Running environment
+This is a project that runs completely on python 3 Jupyter Notebooks. Be sure to have the needed IDE to run a jupyter notebook.
+
+#### Prerequisites
+**Download and install the required libraries**
 The very first step is to have the proper python packages installed. These are the ones we will be using:
-This is an example of how to list things you need to use the software and how to install them.
   * **Numpy** 
   
     Version: 1.19.5
@@ -244,12 +246,25 @@ This is an example of how to list things you need to use the software and how to
     ```sh
     pip3 install imblearn==0.0
     ```
-3. 
-4. 
-5. 
+#### Clone the repo
 
+Fork this repo to make a copy on your github account. Then clone it locally. 
 
-This repository consist only of 3 main files:
-- Setup
+#### Download the dataset 
+Once all libraries are properly installed, it is time to **download the dataset** we used for the model.
 
+ 
+1. As we are extracting the data from Kaggle, to download the dataset you will have to create an account in the Kaggle homepage (https://www.kaggle.com/).
+
+![image](https://user-images.githubusercontent.com/115569635/230698111-07b18682-d323-47de-882a-f4ea5c81f00c.png)
+
+2. After successfully creating an account, access the following link and click **download**: https://www.kaggle.com/datasets/naharrison/particle-identification-from-detector-responses 
+
+![image](https://user-images.githubusercontent.com/115569635/230697992-7462bd20-d55d-454a-846b-7b0ae8585e97.png)
+
+The zip file should have the name **pid-5M.csv.zip**
+
+3. Locate your copy of this repo. Extract the csv inside the folder named **Collision Dataset** and rename the file to *collision_simulations.csv* 
+
+#### NOW EVERYTHING IS SET TO RUN THE MAIN PROJECT NOTEBOOK!
 
