@@ -97,6 +97,7 @@ The original dataset contained a total of **5,000,000** rows, after cleanning an
 
 
 ### About the Model 
+#### Baseline
 As a **baseline**, a simple neural network with only 4 neurons in the the hiden layer was trained with the original imbalanced dataset. As expected, the performance of the model was highly affected by the difference between the mayority and minority class, turning out in a good classificator for the mayority class but a completely poor model for identifiying events of the minority one. 
 
 Initially, the class distribution of the data looked like this:
@@ -109,6 +110,7 @@ And the resulting evaluation metrics turned out as shown bellow
 
 Overall, this baseline naive model was not even close to be functional or to even meet the goal. 
 
+#### Final
 The **final** proposed model consist of a simple neural network, with 6 input neurons (as there are a total of 6 features), one hiden layer with 10 neurons (number of neurons in this layer was chosen trough a grid search exproration between 4 and 12 neurons ) and an output layer with 4 neurons (due to having 4 classes). The architechture is described in the diagram below.
 
 ![image](https://user-images.githubusercontent.com/115569635/230452743-013f56d1-6e78-4602-a767-476cd12c5a3f.png)
@@ -162,7 +164,92 @@ Some of the applications where this model can come to play can be found in the f
 
  ## Getting Started
 
-### Repository exploration
+There are a couple of steps to follow to run this repository localy. 
+
+1. This is a project that runs completely on python 3 Jupeyter Notebooks. Be sure to have the needed IDE to run a jupyter notebook.
+2. **Download and install the required libraries**
+The very first step is to have the proper python packages installed. These are the ones we will be using:
+This is an example of how to list things you need to use the software and how to install them.
+  * **Numpy** 
+  
+    Version: 1.19.5
+
+    NumPy is the fundamental package for array computing with Python.
+
+    Home-page: https://www.numpy.org 
+
+    Command: 
+    ```sh
+    pip3 install numpy==1.19.5
+    ```
+  * **Pandas** 
+  
+    Version: 1.1.2
+
+    Powerful data structures for data analysis, time series, and statistics
+
+    Home-page: https://pandas.pydata.org 
+
+    Command: 
+    ```sh
+    pip3 install pandas==1.1.2
+    ```
+  * **Seaborn** 
+  
+    Version: 0.11.2
+
+    Powerful tool for statistical data visualization
+
+    Home-page: https://seaborn.pydata.org
+
+    Command: 
+    ```sh
+    pip3 install seaborn==0.11.2
+    ```
+  * **Matplotlib** 
+  
+    Version: 3.3.4
+
+    Python plotting package
+
+    Home-page: https://matplotlib.org
+    
+    Command: 
+    ```sh
+    pip3 install matplotlib==3.3.4
+    ```
+  
+  * **Keras** 
+  
+    Version: 2.6.0
+
+    TensorFlow Keras.
+
+    Home-page: https://keras.io/
+    
+    Command: 
+    ```sh
+    pip3 install keras==2.6.0
+    ```
+   
+  * **Imblearn** 
+  
+    Version: 0.0
+
+    Toolbox for imbalanced dataset in machine learning.
+
+    Home-page: https://pypi.python.org/pypi/imbalanced-learn/
+    
+    Command: 
+    ```sh
+    pip3 install imblearn==0.0
+    ```
+3. 
+4. 
+5. 
+
 
 This repository consist only of 3 main files:
 - Setup
+
+
