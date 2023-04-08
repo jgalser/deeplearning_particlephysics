@@ -7,33 +7,6 @@ High-energy collisions of subatomic particles result in a cascade of novel parti
 
 ![image](https://user-images.githubusercontent.com/115569635/230550522-79610b48-c79c-4685-af27-77e23fd317f1.png)
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#project_intro">Project Introduction</a>
-      <ul>
-        <li><a href="#business">Business Understanding</a></li>
-        <li><a href="#"> </a></li>
-        <li><a href="#built-with">Scope</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
 
 ## Project Overview
 
@@ -267,4 +240,23 @@ The zip file should have the name **pid-5M.csv.zip**
 3. Locate your copy of this repo. Extract the csv inside the folder named **Collision Dataset** and rename the file to *collision_simulations.csv* 
 
 #### NOW EVERYTHING IS SET TO RUN THE MAIN PROJECT NOTEBOOK!
+
+## Repository Exploration Guide
+
+##### 1. Collision Dataset [Folder]
+This is where the dataset should be downloaded
+
+##### 2. *Capstone Project Proposal.pdf* [file]
+This is a pdf file that contains the original proposal for the project
+
+##### 3. *Main.ipynb* [file]
+This is the notebook that contains the whole project, from data exploration to training and evaluation
+Link: https://github.com/jgalser/deeplearning_particlephysics/blob/main/Main.ipynb 
+
+##### 4. *NN_for_ParticleClassification_Presentation.ipynb* [file]
+This is the pdf that contains the slides for the non technical project presentation.
+Link: https://github.com/jgalser/deeplearning_particlephysics/blob/main/NN_for_ParticleClassification_Presentation.pdf
+
+##### 5. *README.md* [file]
+This Readme file
 
