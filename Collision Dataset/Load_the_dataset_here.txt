@@ -1,0 +1,2 @@
+# This is just a reminder to place the dataset inside the same folder as this note
+# For specific instructions refer to the README.md file in the Getting Started section
